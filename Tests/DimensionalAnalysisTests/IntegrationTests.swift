@@ -25,7 +25,7 @@ class IntegrationTests: XCTestCase {
 
         // Help break up the expression:
         let constantVelocityComponent = v * t
-        let accelerationComponent = (0.5 * (a * (t * t)))
+        let accelerationComponent = 0.5 * a * t * t
         let calculatedEnd = startPosition +
           constantVelocityComponent +
           accelerationComponent
