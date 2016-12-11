@@ -60,3 +60,44 @@ public func *<Num, Denom>(lhs: Measurement<Div<Num, Denom>>, rhs: Measurement<De
   where Num: Dimension, Denom: Dimension {
     return rhs * lhs
 }
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom, Other>(lhs: Measurement<Denom>, rhs: Measurement<Div<Num, Mul<Denom, Other>>>) ->
+  Measurement<Div<Num, Other>> {
+    return Measurement(value: lhs.value * rhs.value,
+                       unit: lhs.unit * rhs.unit)
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom>(lhs: Measurement<Denom>, rhs: Measurement<Div<Num, Mul<Denom, Denom>>>) ->
+  Measurement<Div<Num, Denom>> {
+    return Measurement(value: lhs.value * rhs.value,
+                       unit: lhs.unit * rhs.unit)
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom>(lhs: Measurement<Div<Num, Mul<Denom, Denom>>>, rhs: Measurement<Denom>) ->
+  Measurement<Div<Num, Denom>> {
+    return rhs * lhs
+}
+
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom, Other>(lhs: Measurement<Denom>, rhs: Measurement<Div<Num, Mul<Other, Denom>>>) ->
+  Measurement<Div<Num, Other>> {
+    return Measurement(value: lhs.value * rhs.value,
+                       unit: lhs.unit * rhs.unit)
+}
+
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom, Other>(lhs: Measurement<Div<Num, Mul<Denom, Other>>>, rhs: Measurement<Denom>) ->
+  Measurement<Div<Num, Other>> {
+    return rhs * lhs
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Num, Denom, Other>(lhs: Measurement<Div<Num, Mul<Other, Denom>>>, rhs: Measurement<Denom>) ->
+  Measurement<Div<Num, Other>> {
+    return rhs * lhs
+}

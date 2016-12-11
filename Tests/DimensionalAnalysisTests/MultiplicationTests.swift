@@ -21,6 +21,18 @@ class MultiplicationTests: XCTestCase {
                        "Different unit type symbols get funky.")
     }
 
+    func testCommutativity() {
+        let a = Measurement(value: 10, unit: m / (s * s))
+        let t = Measurement(value: 2, unit: s)
+        let d1 = (0.5 * (a * (t * t)))
+        let d2 = 0.5 * a * t * t
+        let d3 = ((0.5 * a) * (t * t))
+        let d4 = (((0.5 * a) * t) * t)
+        XCTAssertEqual(d1, d2)
+        XCTAssertEqual(d2, d3)
+        XCTAssertEqual(d3, d4)
+    }
+
     func testUnitSimplification() {
         let kmps = km / s
         XCTAssertEqual(kmps * s, km,

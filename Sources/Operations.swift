@@ -105,3 +105,39 @@ public func *<Numerator, Denominator>(lhs: Div<Numerator, Denominator>, rhs: Den
   where Numerator: Dimension, Denominator: Dimension {
     return rhs * lhs
 }
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator, Other>(lhs: Denominator, rhs: Div<Numerator, Mul<Denominator, Other>>) -> Div<Numerator, Other>
+  where Numerator: Dimension, Denominator: Dimension {
+    return Div(numerator: rhs.numerator, denominator: rhs.denominator.rhs)
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator, Other>(lhs: Div<Numerator, Mul<Denominator, Other>>, rhs: Denominator) -> Div<Numerator, Other>
+  where Numerator: Dimension, Denominator: Dimension {
+    return rhs * lhs
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator, Other>(lhs: Denominator, rhs: Div<Numerator, Mul<Other, Denominator>>) -> Div<Numerator, Other>
+  where Numerator: Dimension, Denominator: Dimension {
+    return Div(numerator: rhs.numerator, denominator: rhs.denominator.lhs)
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator, Other>(lhs: Div<Numerator, Mul<Other, Denominator>>, rhs: Denominator) -> Div<Numerator, Other>
+  where Numerator: Dimension, Denominator: Dimension {
+    return rhs * lhs
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator>(lhs: Denominator, rhs: Div<Numerator, Mul<Denominator, Denominator>>) -> Div<Numerator, Denominator>
+  where Numerator: Dimension, Denominator: Dimension {
+    return Div(numerator: rhs.numerator, denominator: rhs.denominator.rhs)
+}
+
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public func *<Numerator, Denominator>(lhs: Div<Numerator, Mul<Denominator, Denominator>>, rhs: Denominator) -> Div<Numerator, Denominator>
+  where Numerator: Dimension, Denominator: Dimension {
+    return rhs * lhs
+}
