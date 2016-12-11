@@ -1,8 +1,20 @@
 import Foundation
 
+@available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
+public class Operation: Dimension {
+    override public class func baseUnit() -> Operation {
+        // This gets around some trickiness with the fact that
+        // Div and Mul are generic types which can't be returned
+        // by an @objc method, so their class function baseUnit()
+        // must be @nonobjc. This is an @objc shim to allow
+        // baseUnit() to work (albeit opaquely to Objective-C code).
+        return self.baseUnit()
+    }
+}
+
 // - MARK: Division
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
-public class Div<Numerator, Denominator>: Dimension
+public class Div<Numerator, Denominator>: Operation
   where Numerator: Dimension, Denominator: Dimension {
     let numerator: Numerator
     let denominator: Denominator
@@ -11,6 +23,13 @@ public class Div<Numerator, Denominator>: Dimension
     override public class func baseUnit() -> Div<Numerator, Denominator> {
         return Div(numerator: Numerator.baseUnit(),
                    denominator: Denominator.baseUnit())
+    }
+
+    override public func isEqual(_ obj: Any?) -> Bool {
+        guard let cmp = obj as? Div<Numerator, Denominator> else {
+            return false
+        }
+        return numerator == cmp.numerator && denominator == cmp.denominator
     }
 
     public init(numerator: Numerator, denominator: Denominator) {
@@ -36,7 +55,7 @@ public func /<Num, Denom>(lhs: Num, rhs: Denom) -> Div<Num, Denom>
 // - MARK: Multiplication
 
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
-public class Mul<Left, Right>: Dimension where Left: Dimension, Right: Dimension {
+public class Mul<Left, Right>: Operation where Left: Dimension, Right: Dimension {
     let lhs: Left
     let rhs: Right
 
@@ -46,7 +65,10 @@ public class Mul<Left, Right>: Dimension where Left: Dimension, Right: Dimension
     }
 
     override public func isEqual(_ obj: Any?) -> Bool {
-        return obj is Mul<Left, Right>
+        guard let cmp = obj as? Mul<Left, Right> else {
+            return false
+        }
+        return lhs == cmp.lhs && rhs == cmp.rhs
     }
     
     public init(_ left: Left, _ right: Right) {
