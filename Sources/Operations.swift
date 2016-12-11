@@ -47,8 +47,7 @@ public class Div<Numerator, Denominator>: Operation
 }
 
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
-public func /<Num, Denom>(lhs: Num, rhs: Denom) -> Div<Num, Denom>
-  where Num: Dimension, Denom: Dimension {
+public func /<Num, Denom>(lhs: Num, rhs: Denom) -> Div<Num, Denom> {
     return Div(numerator: lhs, denominator: rhs)
 }
 
@@ -89,7 +88,6 @@ public class Mul<Left, Right>: Operation where Left: Dimension, Right: Dimension
 }
 
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
-public func *<L, R>(lhs: L, rhs: R) -> Mul<L, R>
-  where L: Dimension, R: Dimension {
+public func *<L, R>(lhs: L, rhs: R) -> Mul<L, R> {
     return Mul(lhs, rhs)
 }
