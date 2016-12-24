@@ -14,29 +14,31 @@ public struct MeasurementAnalysis<UnitSymbol: Hashable> {
                          rhs: MeasurementAnalysis<UnitSymbol>) ->
       MeasurementAnalysis<UnitSymbol>? {
         guard lhs.unit == rhs.unit else { return nil }
-        return MeasurementAnalysis(unit: lhs.unit,
-                                   value: lhs.value + rhs.value)
+        return MeasurementAnalysis(value: lhs.value + rhs.value,
+                                   unit: lhs.unit)
     }
 
     public static func -(lhs: MeasurementAnalysis<UnitSymbol>,
                          rhs: MeasurementAnalysis<UnitSymbol>) ->
       MeasurementAnalysis<UnitSymbol>? {
         guard lhs.unit == rhs.unit else { return nil }
-        return MeasurementAnalysis(unit: lhs.unit,
-                                   value: lhs.value - rhs.value)
+        return MeasurementAnalysis(value: lhs.value - rhs.value,
+                                   unit: lhs.unit)
     }
 
     public static func *(lhs: MeasurementAnalysis<UnitSymbol>,
                          rhs: MeasurementAnalysis<UnitSymbol>) ->
       MeasurementAnalysis<UnitSymbol> {
-        return MeasurementAnalysis(unit: lhs.unit * rhs.unit,
-                                   value: lhs.value * rhs.value)
+        return MeasurementAnalysis(value: lhs.value * rhs.value,
+                                   unit: lhs.unit * rhs.unit)
+                                   
     }
 
     public static func /(lhs: MeasurementAnalysis<UnitSymbol>,
                          rhs: MeasurementAnalysis<UnitSymbol>) ->
       MeasurementAnalysis<UnitSymbol> {
-        return MeasurementAnalysis(unit: lhs.unit / rhs.unit,
-                                   value: lhs.value / rhs.value)
+        return MeasurementAnalysis(value: lhs.value / rhs.value,
+                                   unit: lhs.unit / rhs.unit)
+                                   
     }
 }
