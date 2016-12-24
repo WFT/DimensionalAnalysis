@@ -1,6 +1,6 @@
 public enum UnitAnalysis<Symbol: Hashable>: Equatable {
     public typealias UnitSeries = CountingSet<Symbol>
-    case unitless // no unit
+    case unitless
     case single(Symbol)
     case multiply(UnitSeries)
     case divide(numerator: UnitSeries,

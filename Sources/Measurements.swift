@@ -5,6 +5,11 @@ public struct MeasurementAnalysis<UnitSymbol: Hashable> {
     public let unit: UnitType
     public let value: Double
 
+    public init(value: Double, unit: UnitType) {
+        self.value = value
+        self.unit = unit
+    }
+
     public static func +(lhs: MeasurementAnalysis<UnitSymbol>,
                          rhs: MeasurementAnalysis<UnitSymbol>) ->
       MeasurementAnalysis<UnitSymbol>? {
