@@ -73,10 +73,7 @@ public class Mul<Left, Right>: Operation where Left: Dimension, Right: Dimension
     public init(_ left: Left, _ right: Right) {
         self.lhs = left
         self.rhs = right
-        let symbol: String
-        if left.symbol == right.symbol { symbol = "(\(left.symbol))²" }
-        else { symbol = "(\(left.symbol) * \(right.symbol))" }
-        super.init(symbol: symbol,
+        super.init(symbol: "(\(left.symbol) * \(right.symbol))",
                    converter: OperatorUnitConverter(left.converter, *, right.converter))
     }
 
