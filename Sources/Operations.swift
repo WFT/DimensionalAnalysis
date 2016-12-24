@@ -16,8 +16,8 @@ public class Operation: Dimension {
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
 public class Div<Numerator, Denominator>: Operation
   where Numerator: Dimension, Denominator: Dimension {
-    let numerator: Numerator
-    let denominator: Denominator
+    public let numerator: Numerator
+    public let denominator: Denominator
 
     @nonobjc
     override public class func baseUnit() -> Div<Numerator, Denominator> {
@@ -55,8 +55,8 @@ public func /<Num, Denom>(lhs: Num, rhs: Denom) -> Div<Num, Denom> {
 
 @available(OSX 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)
 public class Mul<Left, Right>: Operation where Left: Dimension, Right: Dimension {
-    let lhs: Left
-    let rhs: Right
+    public let lhs: Left
+    public let rhs: Right
 
     @nonobjc
     override public class func baseUnit() -> Mul<Left, Right> {
