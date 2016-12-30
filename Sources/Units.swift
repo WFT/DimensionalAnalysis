@@ -5,6 +5,10 @@ public enum UnitAnalysis<Symbol: Hashable>: Equatable {
     case multiply(UnitSeries)
     case divide(numerator: UnitSeries,
                 denominator: UnitSeries)
+    
+    public init(_ sym: Symbol) {
+        self = .single(sym)
+    }
 
     private var numerator: UnitSeries {
         switch self {
