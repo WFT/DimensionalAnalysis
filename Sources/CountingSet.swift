@@ -1,17 +1,17 @@
 public struct CountingSet<U: Hashable>: Equatable, Collection {
-    private var counts: [U : Int] = [:]
+    private var counts: [U : Double] = [:]
 
     public var isEmpty: Bool { return counts.isEmpty }
 
-    public var count: Int { return counts.reduce(0, { $0 + $1.1 })}
+    public var count: Double { return counts.reduce(0, { $0 + $1.1 })}
     
-    public mutating func increment(_ item: U) {
-        counts[item] = (counts[item] ?? 0) + 1
+    public mutating func increment(_ item: U, by inc: Double = 1) {
+        counts[item] = (counts[item] ?? 0) + inc
     }
 
-    public mutating func decrement(_ item: U) {
-        let result = counts[item]! - 1
-        if result == 0 { counts[item] = nil } // makes empty check simpler
+    public mutating func decrement(_ item: U, by dec: Double = 1) {
+        let result = counts[item]! - dec
+        if result <= 0 { counts[item] = nil } // makes empty check simpler
         else { counts[item] = result }
     }
 
@@ -22,13 +22,13 @@ public struct CountingSet<U: Hashable>: Equatable, Collection {
     }
 
     // - MARK: Collection
-    public func makeIterator() -> Dictionary<U, Int>.Iterator {
+    public func makeIterator() -> Dictionary<U, Double>.Iterator {
         return counts.makeIterator()
     }
 
-    public typealias Index = Dictionary<U, Int>.Index
-    public typealias SubSequence = Dictionary<U, Int>.SubSequence
-    public typealias Indices = Dictionary<U, Int>.Indices
+    public typealias Index = Dictionary<U, Double>.Index
+    public typealias SubSequence = Dictionary<U, Double>.SubSequence
+    public typealias Indices = Dictionary<U, Double>.Indices
 
     public var startIndex: Index { return counts.startIndex }
 
@@ -44,7 +44,7 @@ public struct CountingSet<U: Hashable>: Equatable, Collection {
         return counts[item] != nil
     }
     
-    public subscript(item: Index) -> DictionaryIterator<U, Int>.Element {
+    public subscript(item: Index) -> DictionaryIterator<U, Double>.Element {
         get { return counts[item] }
     }
 
@@ -52,7 +52,7 @@ public struct CountingSet<U: Hashable>: Equatable, Collection {
         get { return counts[item] }
     }
     
-    public subscript(item: U) -> Int {
+    public subscript(item: U) -> Double {
         get { return counts[item] ?? 0 }
         set {
             if newValue > 0 { counts[item] = newValue }

@@ -49,6 +49,23 @@ public enum UnitAnalysis<Symbol: Hashable>: Equatable {
                                   denominator: simpleDenom)
         }
     }
+
+    public func pow(_ exponent: Double) -> UnitAnalysis {
+        let absExponent = abs(exponent)
+        func performExponent(_ units: UnitSeries) -> UnitSeries {
+            var newUnits = units
+            for (u, ex) in units {
+                newUnits[u] = ex * absExponent
+            }
+            return newUnits
+        }
+        let num = performExponent(numerator)
+        let denom = performExponent(denominator)
+        let units: UnitAnalysis = exponent < 0 ?
+          .divide(numerator: denom, denominator: num) :
+          .divide(numerator: num, denominator: denom)
+        return units.simplified
+    }
     
     public static func ==(lhs: UnitAnalysis, rhs: UnitAnalysis) -> Bool {
         switch lhs {

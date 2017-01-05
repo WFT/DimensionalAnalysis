@@ -1,3 +1,15 @@
+#if os(iOS) || os(OSX) || os(tvOS)
+import Darwin
+#else
+import Glibc
+#endif
+
+fileprivate extension Double {
+    func power(_ exponent: Double) -> Double {
+        return pow(self, exponent)
+    }
+}
+
 // Reimplementation of Foundation.Measurement using our types
 public struct MeasurementAnalysis<UnitSymbol: Hashable>: Equatable {
     public typealias UnitType = UnitAnalysis<UnitSymbol>
@@ -8,6 +20,11 @@ public struct MeasurementAnalysis<UnitSymbol: Hashable>: Equatable {
     public init(value: Double, unit: UnitType) {
         self.value = value
         self.unit = unit
+    }
+
+    public func pow(_ exponent: Double) -> MeasurementAnalysis {
+        return MeasurementAnalysis(value: value.power(exponent),
+                                   unit: unit.pow(exponent))
     }
 
     public static func ==(lhs: MeasurementAnalysis<UnitSymbol>,
